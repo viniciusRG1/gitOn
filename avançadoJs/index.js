@@ -618,6 +618,76 @@ a1.forEach(function(valor, indice, array){
 /*
 aula 19
 
+freeze trava o objeto
+podemos também travar apenas alguns atributos
+defineProperty - para um 
+defineProperties - trava um conjunto
+
+function Produto(nome, preco, estoque){
+    this.nome = nome;
+    this.preco = preco;
+    this.estoque = estoque;
+
+    Object.defineProperty(this, `estoque`, {
+        enumerable : true, // mostra a chave
+        value: estoque, // guarda o valor
+        writable: true, // é possivel a alteração
+        configurable:  false // configuravel, poder refazer essa config
+        //o configurable também não deixa deletar
+    });
+    Object.defineProperties(this, {
+        nome: {
+            enumerable: true,
+            value: nome,
+            writable: true,
+            configurable: true
+        },
+        preco: {
+            enumerable: true,
+            value: preco,
+            writable: WebTransportBidirectionalStream,
+            configurable: true
+        },
+    });
+    // a diferença entre os dois é que properties faz em conjunto
+    // e o property é mais específico
+}
+
+const p1 = new Produto(`camiseta`, 20, 3);
+p1.estoque = 4;
+console.log(p1);
+*/
+/*
+aula 20
+
+function Produto(nome, preco, estoque){
+    this.nome = nome;
+    this.preco = preco;
+    let estoqueP = estoque;
+
+    Object.defineProperty(this, `estoque`, {
+        enumerable : true, // mostra a chave
+        configurable:  true, // configuravel, poder refazer essa config
+        //o configurable também não deixa deletar
+        get: function(){
+            return estoqueP;
+        },
+        set: function(valor){
+            if(typeof valor !== `number`){
+                console.log(`valor errado`);
+            }else{
+                estoqueP = valor;
+                console.log(this.estoque);
+            }
+        }
+    });
+}
+
+const p1 = new Produto(`camiseta`, 20, 3);
+p1.estoque = 4;
+console.log(p1);
+console.log(p1.estoque);
+p1.estoque = 10;
 
 */
 
