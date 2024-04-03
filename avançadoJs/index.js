@@ -691,3 +691,530 @@ p1.estoque = 10;
 
 */
 
+
+/*
+aula 21
+
+// copiar objeto
+const produto = {nome: `Caneca`, preco: 1.8};
+const outraCoisa = Object.assign({}, produto, {material:`porcelana`});
+
+// pegar partes do objetos específico
+const caneca = {nome: produto.nome, preco: produto.preco}
+
+//
+
+const produto2 = {nome: `produto`, preco: 1.8};
+
+Object.defineProperty(produto2, `nome`, {
+    writable: false, // não pode ser alterado
+    configurable: false, // não pode ser configurado
+});
+
+// fizemos isso pra mostar como podemos mostrar todas as config do obj
+
+console.log(Object.getOwnPropertyDescriptor(produto2, `nome`));
+outraCoisa.nome = `Outro nome`;
+outraCoisa.preco = 2.5;
+console.log(produto);
+console.log(outraCoisa);
+
+console.log(caneca);
+
+// Object.values pegar os valores
+
+console.log(Object.values(produto2));
+
+// se quisermos ver tanto chave quando valor usamos entries
+
+console.log(Object.entries(produto2));
+
+*/
+
+/*
+aula 22
+
+protótiopos == modelo
+
+pra usar precisamos o prototype precisamos adicionar ele em photo
+pra fazer isso:
+
+Pessoa.prototype.estouAqui = `hahaha`
+
+function Pessoa(nome, sobrenome){
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+}
+
+// adicionamos essa função, agora todos os obj terão essa adição
+
+Pessoa.prototype.nomeCompleto = function(){
+    return this.nome + ` ` + this.sobrenome;
+}
+
+const pessoa1 = new Pessoa(`Vinicius`, `Garcia`);
+
+console.log(pessoa1.nomeCompleto());
+*/
+/*
+aula 23
+
+vamos trabalhar com herança de protótipos
+
+const objA = new Object();
+    objA.chaveA = `A`
+
+
+    const objB = new Object();
+    objB.chaveB = `B`
+
+    const objC = new Object();
+    objC.chaveC = `C`
+
+Object.setPrototypeOf(objB, objA);
+Object.setPrototypeOf(objC, objB);
+//aqui passamos a herança de A para B e de B para C
+console.log(objC.chaveA);
+
+//podemos adicionar esses prototypes em objetos que não são do mesmo tipo
+//como por exemplo:
+const p2 = {
+    nome: `Caneca`,
+    preco: 15
+};
+
+Object.setPrototypeOf(p2, objC);
+
+console.log(p2.chaveB);
+*/
+
+/*
+aula 24
+
+herança, serve para que com base em uma classe, especializar ela 
+para q ela seja mais próxima a alguma coisa
+
+
+function Produto(nome, preco){
+    this.nome = nome;
+    this.preco = preco;
+}
+
+Produto.prototype.aumento = function(quantia){
+    this.preco += quantia;
+}
+
+Produto.prototype.desconto = function(quantia){
+    this.preco -= quantia;
+}
+
+//aqui já ligamos os atributos das duas classes
+function Camiseta(nome, preco, cor){
+    Produto.call(this, nome, preco);
+    this.cor = cor;
+}
+// passar os métodos para a herança
+Camiseta.prototype = Object.create(Produto.prototype)
+Camiseta.prototype.constructor = Camiseta;
+// métodos devem ser recriados
+Camiseta.prototype.aumento = function(quantia){
+    this.preco = this.preco + quantia;
+}
+
+const camiseta = new Camiseta(`camisa`, 40, `Branca`);
+console.log(camiseta);
+camiseta.aumento(10)
+console.log(camiseta);
+*/
+
+/*
+aula 25
+
+polimorfismo
+
+function Conta(agencia, conta, saldo){
+    this.agencia = agencia;
+    this.conta = conta;
+    this.saldo = saldo;
+}
+
+Conta.prototype.sacar = function(valor){
+    if(this.saldo < valor){
+        console.log(this.sacar());
+        return;
+    }else{
+        this.saldo -= valor;
+        console.log(`valor sacado`);
+        return;
+    }
+};
+Conta.prototype.depositar = function(valor){
+    this.saldo += valor;
+    console.log(`valor depositado`);
+    return;
+};
+Conta.prototype.verSaldo = function(){
+    return console.log(`sua agencia é ${this.agencia} / sua conta é ${this.conta}`);
+};
+
+function CC(agencia, conta, saldo, limite){
+    Conta.call(this, agencia, conta, saldo);
+    this.limite = limite;
+}
+
+CC.prototype.sacar = function(valor){
+    if(valor > (this.saldo + this.limite)){
+        console.log(`Saldo insuficiente: ${this.saldo}`);
+        return;
+    }
+
+    this.saldo -= valor;
+    this.verSaldo();
+};
+
+const c1 = new Conta(1, 22, 400);
+console.log(c1);
+c1.depositar(400);
+c1.sacar(1);
+
+*/
+
+/*
+aula 26
+
+herança
+function criaPessoa(nome, sobrenome){
+        const pessoaPrototype ={
+            falar(){
+                console.log(`${this.nome} esta falando`);
+            },
+            comer(){
+                console.log(`${this.nome} esta comendo`);
+            },
+            beber(){
+             console.log(`${this.nome} está bebendo`);
+            }
+        }
+    return Object.create(pessoaPrototype, {
+        nome: {value: nome},
+        sobrenome: {value: sobrenome}
+    });
+}
+
+
+
+const p1 = criaPessoa(`Luiz`, `Otávio`);
+
+*/
+
+/*
+aul a27 
+
+map
+
+const pessoas = [
+    {id: 3, nome: `Luiz`},
+    {id: 2, nome: `Caio`},
+    {id: 1, nome: `Ana`},
+];
+
+const novasPessoas = new Map();
+for(const pessoa of pessoas){
+    const {id} = pessoa;
+    novasPessoas.set(id, {...pessoa});
+}
+
+for (const pessoas of novasPessoas.keys()){
+    console.log(pessoas);
+}*/
+
+/*
+aula 28
+
+class - molde igual a POO
+
+class Pessoa{
+    constructor(nome, sobrenome){
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    falar(){
+        console.log(`${this.nome} esta falando.`);
+    }
+
+    comer(){
+        console.log(`${this.nome} esta comendo.`);
+    }
+
+    beber(){
+        console.log(`${this.nome} esta bebendo.`);
+    }
+}
+
+const p1 = new Pessoa(`vinicius`, `Garcia`);
+console.log(p1);
+p1.falar()
+p1.comer()
+p1.beber()
+*/
+
+/*
+aula 29
+
+getter and setter
+
+const _velocidade = Symbol(`velocidade`);
+
+class Carro{
+    constructor(nome, velocidade){
+        this.nome = nome;
+        this[_velocidade] = 0;
+    }
+
+    set velocidade(valor){
+        if(typeof valor !== `number`) return;
+        if(valor >= 100 || valor <= 0) return;
+        else[_velocidade] = valor;
+    }
+
+    get velocidade(){
+        return this[_velocidade];
+    }
+
+    acelerar(){
+        if(this[_velocidade] >= 100){
+            return;
+        }else{
+            this[_velocidade]++;
+        }
+    }
+    freiar(){
+        if(this[_velocidade] <=0){
+            return;
+        }else{
+            this[_velocidade]--;
+        }
+    }
+}
+
+const c1 = new Carro(`Fusca`);
+
+for(let i = 0; i <= 200; i++){
+    c1.acelerar();
+}
+
+console.log(c1.velocidade);
+
+*/
+
+/*
+aula 30
+
+herança com class
+
+class DispositivoEletronico{
+    constructor(nome){
+        this.nome = nome;
+        this.ligado = false;
+    }
+
+    ligar(){
+        if(this.ligado) {
+            console.log(`${this.nome} já está ligado`);
+            return;
+        }
+        else{
+            this.ligado = true;
+        }
+    }
+
+    desligar(){
+        if(this.ligado === false) {
+            console.log(`${this.nome} já está desligado`)
+            return;
+        }
+        else{
+            this.ligado = false;
+        }
+    }
+}
+
+class Smartphone extends DispositivoEletronico{
+    constructor(nome, cor, modelo){
+        super(nome);
+        this.cor = cor;
+        this.modelo = modelo
+    }
+}
+
+const d1 = new DispositivoEletronico(`celular`);
+const c1 =  new Smartphone(`samsung`, `azul`, `m62`)
+d1.ligar();
+d1.ligar();
+d1.desligar();
+d1.desligar();
+c1.ligar();
+c1.ligar();
+c1.desligar();
+c1.desligar();
+*/
+
+/*
+aula 31
+
+métodos de instância e estáticos
+
+class ControleRemoto{
+    constructor(tv){
+        this.tv = tv;
+        this.volume = 0;
+    }
+
+    aumentarVolume(){
+        this.volume += 2;
+    }
+    diminuirVolume(){
+        this.volume -=2;
+    }
+
+    static trocaPilha(){ // funções estáticas só pode ser usada por quem a 
+                         // criou, precisando chamar a class
+        console.log(`foi trocado`);
+    }
+}
+
+const c1 = new ControleRemoto(`samsung`);
+
+c1.aumentarVolume();
+c1.aumentarVolume();
+c1.aumentarVolume();
+ControleRemoto.trocaPilha();
+console.log(c1.volume);
+*/
+
+/*
+aula 32
+
+validação de CPF com classes 
+
+class ValidaCPF{
+    constructor(cpfEnviado){
+        Object.defineProperty(this, `cpfLimpo`, {
+            writable:false,
+            enumerable: false,
+            configurable: false,
+            value: cpfEnviado.replace(/\D+/g,``)
+        });
+    }
+    sequência(){
+        return this.cpfLimpo.charAt(0).repeat(11) === this.cpfLimpo;
+    }
+
+    geraDigito(cpfSemDigito) {
+        let total = 0;
+        let reverso = cpfSemDigito.length + 1;
+        
+        for(let stringNumerica of cpfSemDigito){
+            total += reverso * Number(stringNumerica);
+            reverso--;
+        }
+        const digito = 11 - (total % 11);
+        return digito <= 9 ? String(digito) : `0`;
+    }
+
+    valida(){
+        if(!this.cpfLimpo) return false;
+        if(typeof this.cpfLimpo !== `string`) return false;
+        if(this.cpfLimpo.length !== 11) return false;
+        this.geraDigito();
+
+
+        return `Cheguei aqui`;
+    }
+}
+
+const validacpf = new ValidaCPF(`504.403.808-39`);
+*/
+
+/*
+validando formulário
+
+class ValidarFormulario{
+    constructor(){
+        this.formulario = document.querySelector(`.formulario`); //puxar
+        // as informações da classe formulário
+        this.eventos();
+    }
+        eventos(){
+            this.formulario.addEventListener(`submit`, e => {
+                this.handleSubmit(e);
+            });
+        }
+        handleSubmit(e) {
+            e.preventDefault()
+            const camposValidos = this.checaCampos();
+            const senhaValida = this.checaSenha();
+        }
+
+        checaSenha(){
+            let valid = true;
+            const senha = this.formulario.querySelector(`.senha`);
+            const repetirSenha = this.formulario.querySelector(`.repetirSenha`);
+
+            if(senha.value !== repetirSenha.value){
+                valid = false;
+                this.criaErro(senha, `senha está incorreta`);
+                this.criaErro(repetirSenha, `repetir senha está incorreta`);
+            }
+        }
+
+        checaCampos(){
+            let valid = true;
+
+            for(let errorText of this.formulario.querySelectorAll(`.error-text`)){
+                errorText.remove();
+            }
+            for(let campo of this.formulario.querySelectorAll(`.validar`)){
+                let label = campo.previousElementSibling.innerText;
+                if(!campo.value) {
+                    this.criaErro(campo, `campo ${label} está errado`);
+                    valid = false;
+                }
+                if(campo.classList.contains(`usuario`)){
+                    if(!this.validaUsuario(campo)) valid = false;
+                }
+            }
+            return valida;
+        }
+
+        validaUsuario(campo){
+            const usuario = campo.value;
+            let valid = true;
+            if(usuario.length > 12 || usuario.length < 3){
+                this.criaErro(campo, `usuário inválido`);
+                valid = false;
+            }
+            if(!usuario.math(/^[a-zA-Z0-9]+/g)){
+                this.criaErro(campo, `usuário inválido`);
+                valid = false;
+            }
+            return true;
+        }
+
+        criaErro(campo, msg){
+                const div = document.createElement(`div`);
+                div.innerHTML = msg;
+                div.classList.add(`error-text`);
+                campo.insertAdjacentElement(`afterend`, div);
+        }
+        
+
+
+}
+
+const valida = new ValidarFormulario();
+
+
+*/
+
