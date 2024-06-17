@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Pedro"
+  },
+  {
+    "nome": "Paulo"
+  },
+  {
+    "nome": "pichain"
+  },
+  {
+    "nome": "joão"
+  }
+]
