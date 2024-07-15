@@ -1,4 +1,5 @@
 const Login = require('../models/LoginModel');
+const bcryptjs = require('bcrypt');
 
 
 exports.index = (req, res) => {
@@ -10,7 +11,7 @@ exports.index = (req, res) => {
 
 exports.register = function(req, res){
     try{
-        const login = new login(req.body);
+        const login = new Login(req.body);
     login.register();
     if(login.errors.length > 0) {
         req.flash('errors', login.errors);

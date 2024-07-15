@@ -15,7 +15,7 @@ const path = require('path');
 const helmet = require('helmet');
 const csrf = require('csurf');
 const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');
-
+const bcrypts = require('bcrypt');
 app.use(helmet());
 
 app.use(express.urlencoded({ extended: true }));

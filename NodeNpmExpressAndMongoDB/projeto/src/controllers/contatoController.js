@@ -51,7 +51,6 @@ exports.edit = async function(req, res){
         console.log(e);
         res.render('404');
     }
-    
 };
 
 exports.delete = async function(req, res){

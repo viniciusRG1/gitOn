@@ -24,7 +24,7 @@ Contato.prototype.register = async function(){
   this.contato = await ContatoModel.create(this.body);
 };
 
-Contato.prototype.valida() = function() {
+Contato.prototype.valida = function() {
   this.cleanUp(); // que chama a limpeza do obj
   if(this.body.email && !validator.isEmail(this.body.email)) this.errors.push('E-mail invalido');
   if(!this.body.nome) this.errors.push('nome é obrigatório');
@@ -35,7 +35,7 @@ Contato.prototype.valida() = function() {
 
 // garantir q só tem string
 
-Contato.prototype.cleanUp() = function(){
+Contato.prototype.cleanUp = function(){
   for(const key in this.body){
     if(typeof this.body[key] !== 'stirng'){
       this.body[key] = '';
@@ -70,7 +70,7 @@ Contato.buscaContatos = async function(){
 
 Contato.delete = async function(id){
   if(typeof id !== 'string') return;
-  const contato = await ContatoModel.findOneAndDelete(id);
+  const contato = await ContatoModel.findOneAndDelete({_id}, id);
   return contato;
 };
 
