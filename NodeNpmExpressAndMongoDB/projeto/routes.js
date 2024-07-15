@@ -18,5 +18,7 @@ route.post('/login/logout', loginController.logout);
 route.get('/contato/index', loginController, contatoController.index);
 route.post('/contato/register', loginController, contatoController.register);
 route.get('/contato/index/:id', loginController, contatoController.editIndex);
+route.post('/contato/edit/:id', loginRequired, contatoController.edit);
+route.get('./contato/delete/:id', loginRequired, contatoController.delete);
 
 module.exports = route;

@@ -7,8 +7,11 @@
           <h1 class="text-center">agenda</h1>
           <P class="text-center lead">cria e edite seus contatos</P>
           <%- include('includes/messages') %>
-          
-          <form action="/contato/register" method="POST">
+          <% if(contato._id){
+            <form action="/contato/edit/ <%=contato._id%>" method="POST">
+          <% } else { %>
+            <form action="/contato/register" method="POST">   
+          <%}%> 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group">
               <label>nome</label>
@@ -25,9 +28,10 @@
             <div class="form-group">
               <label>telefone</label>
               <input type="tell" class="form-control" name="tell" value="<%= contato.tell%>">
+              
             </div>
-          </form>
-        </div>
+            </form>
+            </div>
         <div class="col-lg-2"></div>
       </div>
     </div>
