@@ -29,6 +29,7 @@
         "mongodb": "^6.8.0",
         "mongoose": "^5.12.1",
         "regenerator-runtime": "^0.13.7",
+        "route": "^0.2.5",
         "style-loader": "^2.0.0",
         "validator": "^13.12.0",
         "yarn": "^1.22.22"
