@@ -1,8 +1,8 @@
-import app from './app';
+
+import App from './app.js';
 
 const port = 3001;
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log();
-  console.log(`escutando a porta ${port}`);
+
+App.listen(port, () =>{
+  console.log(`${port}`)
 });

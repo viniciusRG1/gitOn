@@ -1,19 +1,24 @@
+
 import express from 'express';
-import homeRoutes from './src/HomeRoutes';
+import homeRoute from './src/routes/homeRoute.js';
 
 class App{
-    constructor(){
-        this.app = express();
-        this.middlewares();
-        this.routes();
-    }
-    middlewares(){
-        this.app.use(express.urlencoded({extended: true}));
-        this.app.use(express.json());
-    }
-    routes(){
-        this.app.use('/', homeRoutes);
-    }
+  constructor(){
+    this.App = express();
+    this.middlewares();
+    this.routes();
+  }
+
+  middlewares(){
+    this.App.use(express.urlencoded({extended: true}));
+    this.App.use(express.json());
+  }
+
+  routes(){
+    this.App.use('/', homeRoute);
+  }
+
 }
 
-export default new App().app;
+export default new App().App;
+
